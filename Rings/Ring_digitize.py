@@ -7,12 +7,11 @@
 #----------------------------------------------------
 
 import numpy             as np
-import matplotlib.pyplot as plt
 
 from PIL                   import Image
 from scipy.ndimage.filters import gaussian_filter
 
-def Rings(filename,xmin,xmax,nbins=20.):
+def Rings(filename,xmin,xmax,saveImg=False,nbins=20.):
   img = Image.open("%s.jpg" % filename)
   
   r,_,_ = img.split()
@@ -23,13 +22,17 @@ def Rings(filename,xmin,xmax,nbins=20.):
   gauss = gaussian_filter(red/255.,sigma=7)
   dig   = np.digitize(gauss, np.linspace(0,1,nbins)) / nbins
   
-  plt.figure()
-  plt.xlim(xmin,xmax)
-  plt.ylim(0,1)
-  
-  plt.plot(x,dig)
-  plt.savefig("%s.pdf" % filename)
-  
+  if saveImg:
+    import matplotlib.pyplot as plt
+    plt.figure(figsize=(8, 6), dpi=80)
+    plt.title('%s' % filename.replace('_',' '))
+    plt.xlabel('Distance to Saturn center (km)')
+    plt.ylabel('Opacity of the disc ()')
+    plt.xlim(xmin,xmax)
+    plt.ylim(0,1)
+    plt.plot(x,dig)
+    plt.savefig("%s.png" % filename)
+    
   r_min = []; r_max = []; r_opa = []
   
   r = xmin ; d = dig[0]

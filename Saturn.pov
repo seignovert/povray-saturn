@@ -1,25 +1,17 @@
 #version 3.5;
 
 #include "colors.inc"
-#include "textures.inc"
 
-// Observation of Saturn a 2015-016T00:00:00.000
-// X = 19166.97039158
-// Y = 52606.29063610
-// Z = 20118.41574244
-// R = 59494.07718813
+#declare SC_lon =          0; // Observer longitude [deg_W]
+#declare SC_lat =         15; // Observer latitude  [deg_N]
+#declare D_Obs  =    4500000; // Observer distance [km]
 
-#declare SS_lon =  290; // Subsolar longitude [deg_W]
-#declare SS_lat =   20; // Subsolar latitude  [deg_N]
-#declare D_Sun  = 1500000000; // Sun      distance [km]
+#declare SS_lon =        290; // Subsolar longitude [deg_W]
+#declare SS_lat =         20; // Subsolar latitude  [deg_N]
 
-#declare SC_lon =       0; // Observer longitude [deg_W]
-#declare SC_lat =      15; // Observer latitude  [deg_N]
-#declare D_Obs  = 4547001; // Observer distance [km]
-
-#declare Inst_Angle = 3.5179608621032543; // ISS Wide Angle Camera
-
-#declare R_Saturn = 59494; // Saturn Radius [km]
+#declare D_Sun  = 1500000000; // Sun  distance [km]
+#declare R_Saturn =    59494; // Saturn Radius [km]
+#declare Inst_Angle =   3.52; // ISS Wide Angle Camera
 
 // Convert Latitude/Longitude coordinates in XYZ
 #macro XYZ(lon,lat)
@@ -57,26 +49,27 @@ light_source{
    SS * D_Sun
    color White
 } 
-
-sphere {
-   <0,0,0> R_Saturn
-   texture {
-      pigment{
-         image_map {
-            jpeg "saturnmap.jpg"
-            map_type 1
-            interpolate 4
+union {
+   sphere {
+      <0,0,0> R_Saturn
+      texture {
+         pigment{
+            image_map {
+               jpeg "maps/Saturn_Jonsson_Cassini.jpg"
+               map_type 1
+               interpolate 4
+            }
+         }
+         finish { 
+            ambient .001
+            diffuse 1
+            phong .01
          }
       }
-      finish { 
-         ambient .001
-         diffuse 1
-         phong .01
-      }
    }
+   
+   #include "src/C_Ring.dat"
+   #include "src/B_Ring.dat"
+   #include "src/C_Div.dat"
+   #include "src/A_Ring.dat"
 }
-
-#include "src/C_Ring.dat"
-#include "src/B_Ring.dat"
-#include "src/C_Div.dat"
-#include "src/A_Ring.dat"
