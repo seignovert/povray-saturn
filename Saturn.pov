@@ -2,41 +2,26 @@
 
 #include "colors.inc"
 
-#declare SC_lon =          0; // Observer longitude [deg_W]
-#declare SC_lat =         15; // Observer latitude  [deg_N]
-#declare D_Obs  =    4500000; // Observer distance [km]
+#local SC_lon =          0; // Observer longitude [deg_W]
+#local SC_lat =         15; // Observer latitude  [deg_N]
+#local D_Obs  =    4500000; // Observer distance [km]
 
-#declare SS_lon =        290; // Subsolar longitude [deg_W]
-#declare SS_lat =         20; // Subsolar latitude  [deg_N]
+#local SS_lon =        290; // Subsolar longitude [deg_W]
+#local SS_lat =         20; // Subsolar latitude  [deg_N]
 
-#declare D_Sun  = 1500000000; // Sun  distance [km]
-#declare R_Saturn =    59494; // Saturn Radius [km]
-#declare Inst_Angle =   3.52; // ISS Wide Angle Camera
+#local D_Sun  = 1500000000; // Sun  distance [km]
+#local Inst_Angle =   3.52; // ISS Wide Angle Camera
+
+#declare Map_Surface = "maps/Saturn_Jonsson_Cassini.jpg"
 
 // Convert Latitude/Longitude coordinates in XYZ
 #macro XYZ(lon,lat)
   <cos(radians(-lon))*cos(radians(lat)),sin(radians(lat)),sin(radians(-lon))*cos(radians(lat))>
 #end
 
-#macro ring(rmin,rmax,op)
-   disc { 
-      <0,0,0> // center position 
-      y, // normal vector 
-      rmax, // outer radius 
-      rmin // optional hole radius 
-      pigment {
-         rgb<1.,.88,.78> filter op
-      }
-      finish {
-         ambient 0
-         diffuse 2
-      }
-   } 
-#end
-
 // Sub-solar point
-#declare SS = XYZ(SS_lon,SS_lat);
-#declare SC = XYZ(SC_lon,SC_lat);
+#local SS = XYZ(SS_lon,SS_lat);
+#local SC = XYZ(SC_lon,SC_lat);
 
 camera {
    angle Inst_Angle
@@ -49,27 +34,6 @@ light_source{
    SS * D_Sun
    color White
 } 
-union {
-   sphere {
-      <0,0,0> R_Saturn
-      texture {
-         pigment{
-            image_map {
-               jpeg "maps/Saturn_Jonsson_Cassini.jpg"
-               map_type 1
-               interpolate 4
-            }
-         }
-         finish { 
-            ambient .001
-            diffuse 1
-            phong .01
-         }
-      }
-   }
    
-   #include "src/C_Ring.dat"
-   #include "src/B_Ring.dat"
-   #include "src/C_Div.dat"
-   #include "src/A_Ring.dat"
-}
+#include "src/Saturn.inc"
+object { Saturn }

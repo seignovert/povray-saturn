@@ -37,18 +37,22 @@ def Rings(filename,xmin,xmax,saveImg=False,nbins=20.):
   
   r = xmin ; d = dig[0]
   
-  for ii in range(len(x)):
+  for ii in range(len(x)-1):
     if dig[ii] != d:
       r_min.append( r )
       r_max.append( x[ii] )
       r_opa.append( d )
       r = x[ii]
       d = dig[ii]
-  
-  np.savetxt('../src/%s.dat' % filename, np.transpose([r_min,r_max,1.-np.array(r_opa)]), fmt='ring(%i,%i,%.2f)' )
+  r_min.append( r )
+  r_max.append( xmax )
+  r_opa.append( d )
+
+  np.savetxt('../src/rings/%s.dat' % filename, np.transpose([r_min,r_max,1.-np.array(r_opa)]), fmt='ring(%i,%i,%.2f)' )
   return
 
 Rings('C_Ring',74500,92000)
 Rings('B_Ring',92000,117580)
 Rings('C_Div',117580,122200)
 Rings('A_Ring',122200,136780)
+Rings('F_Ring',140180,140220)

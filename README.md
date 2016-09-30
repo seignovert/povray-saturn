@@ -9,14 +9,15 @@ This script render a synthetic image of Saturn and its rings under specific geom
 	- Observer: `15ºN - 0ºW @ 4,500,000 km`
 	- Sun: `20ºN - 290ºW`
 
-## Usage:
-```bash
-povray +H1024 -W1024 +UA Saturn.pov
+## Usage
+```povray
+#include "src/Saturn.inc"
+object { Saturn }
 ```
 
 ## Synthetic image:
 
-![Saturn image](Saturn.png)
+![Saturn image](Saturn.jpg)
 
 ## Saturn Map
 [Maps](./../tree/master/maps) folder contents Saturn maps.
