@@ -1,9 +1,8 @@
 #!/bin/python
 # -*- coding: utf-8 -*-
 # @brief    Extract the radius and the opacity of Saturn rings
-# @date     2016/09/28
 # @author   B.Seignovert (univ-reims@seignovert.fr)
-# @version  1.0
+# @date     2016/09/30
 #----------------------------------------------------
 
 import numpy             as np

@@ -1,3 +1,8 @@
+// @brief    PovRay model of Saturn and its rings
+// @author   B.Seignovert (univ-reims@seignovert.fr)
+// @date     2016/09/30
+//----------------------------------------------------
+
 #local RingsColor = <1.,.88,.78>; // Rings color
 #local R_Saturn   =        59494; // Saturn Radius [km]
 

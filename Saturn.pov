@@ -1,3 +1,8 @@
+// @brief    Render a synthetic image of Saturn and its rings under specific geometry conditions
+// @author   B.Seignovert (univ-reims@seignovert.fr)
+// @date     2016/09/30
+//----------------------------------------------------
+
 #version 3.5;
 
 #include "colors.inc"

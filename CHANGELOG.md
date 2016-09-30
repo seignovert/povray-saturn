@@ -5,6 +5,7 @@
 - Bug Fix on Rings digitalization (include the last ring in the list).
 - Rewrite all `povray` include package for Saturn in a single file with maps changes.
 - Fix bug `Rings` folder name
+- Edit files headers
 
 **Version 1.0** (2016/09/29)
 - Init git projet
